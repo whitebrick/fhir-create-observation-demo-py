@@ -101,7 +101,7 @@ transaction_bundle = create_transaction_bundle_object(observations)
 try:
     transaction_response = post_transaction_bundle(
         smart.server, transaction_bundle)
-except BaseException as e:  # Again, make sure to print error message in the response if there is one
+except BaseException as e:
     if hasattr(e, 'response') and hasattr(e.response, 'json') and callable(e.response.json):
         print("Error uploading observation bundle to server, response json:",
               e.response.json(), file=sys.stderr, sep='\n')
