@@ -9,15 +9,19 @@ from fhirclient.models.observation import Observation
 from transaction_bundles import create_transaction_bundle_object, post_transaction_bundle
 from datetime import datetime
 
-API_BASE_URL = 'http://hapi.fhir.org/baseR4'
+#API_BASE_URL = 'http://hapi.fhir.org/baseR4'
+API_BASE_URL = 'http://cat-nist-tools.ihe-europe.net:6080/hapi-fhir-rw/baseR4'
 FHIR_DATETIME_FORMAT_STRING = '%Y-%m-%dT%H:%M:%S-05:00'
-PATIENT_ID = 30163
+#PATIENT_ID = 30163
+PATIENT_ID = 40
 
 # Test read
 print(f"\n\nTesting connection - looking for patient {PATIENT_ID}")
 server = client.FHIRServer(None, API_BASE_URL)
 p = Patient.read(PATIENT_ID, server)
-print(f"Found patient - name: {p.name[0].text}\n\n")
+print(f"Found patient: {vars(p)}\n\n")
+
+quit()
 
 smart = client.FHIRClient(settings={
     'app_id': 'my_web_app',
@@ -30,7 +34,6 @@ respiratory_rate_value = 33
 blood_pressure_value = 44
 
 effectiveDateTime = datetime.now().strftime(FHIR_DATETIME_FORMAT_STRING)
-
 
 heart_rate = Observation({
     'code': {
